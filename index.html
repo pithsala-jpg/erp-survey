@@ -518,6 +518,23 @@
           </div>
         </div>
 
+        <hr class="divider"/>
+
+        <div class="profile-q">
+          <label class="q-label"><span class="q-num">A5. </span>Identity <span style="font-weight:400;color:var(--muted);font-size:13px;">(optional — responses are reported only in aggregate)</span></label>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:10px;">If you are willing to be contacted for a brief follow-up interview, please provide your name and/or email below. This is entirely voluntary — leaving this blank does not affect your response in any way.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Name (optional)</label>
+              <input type="text" name="respondent_name" placeholder="Your name…" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13.5px;font-family:inherit;color:var(--text);background:var(--white);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--mid-blue)'" onblur="this.style.borderColor='var(--border)'"/>
+            </div>
+            <div>
+              <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;">Email (optional)</label>
+              <input type="text" name="respondent_email" placeholder="Your email…" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:13.5px;font-family:inherit;color:var(--text);background:var(--white);outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--mid-blue)'" onblur="this.style.borderColor='var(--border)'"/>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="nav-row">
@@ -890,7 +907,7 @@
         <div class="check">&#10003;</div>
         <h2>Thank you for your contribution.</h2>
         <p>Your responses have been recorded and will directly inform the research findings on ERP audit practice in Indian PSUs.</p>
-        <p style="margin-top:12px;">For any queries, please write to: <span class="email">imsurenla.longkumer@naaa.gov.in</span></p>
+        <p style="margin-top:12px;">For any queries, please write to: <span class="email">longkumeri@cag.gov.in</span></p>
         <p style="margin-top:20px; font-size:12px; color:#aab;">Dissertation supervised by Shri Kumar Chandresh, Director, NAAA<br/>National Academy of Audit and Accounts</p>
       </div>
     </div>
@@ -930,11 +947,14 @@
     }
   }
 
-  function submitForm() {
+  async function submitForm() {
     // Collect all responses
     const data = {};
     document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
       data[el.name] = el.value;
+    });
+    document.querySelectorAll('input[type="text"]').forEach(el => {
+      if (el.value.trim()) data[el.name] = el.value.trim();
     });
     document.querySelectorAll('textarea').forEach(el => {
       if (el.value.trim()) data[el.name] = el.value.trim();
@@ -943,10 +963,29 @@
       if (el.value) data[el.name] = el.value;
     });
 
-    // In a real deployment this would POST to a backend or Google Apps Script
-    // For now, log and show thank you screen
-    console.log('Survey responses:', JSON.stringify(data, null, 2));
-    goTo(7);
+    // Show loading state
+    const submitBtn = document.querySelector('.btn-submit');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Submitting…';
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch('https://formspree.io/f/xzdldzea', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        goTo(7);
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+      alert('There was a problem submitting the survey. Please check your internet connection and try again.');
+    }
   }
 
   // Highlight selected radio option labels
