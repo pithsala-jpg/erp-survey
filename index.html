@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ERP Audit Practitioner Survey — NAAA 2025–26</title>
+<style>
+  :root {
+    --dark-blue: #1F3864;
+    --mid-blue:  #2E5FA3;
+    --light-blue:#D9E1F2;
+    --gold:      #FFF2CC;
+    --gold-dark: #C9A800;
+    --grey:      #F4F6FA;
+    --border:    #C8D3E8;
+    --text:      #1a1a2e;
+    --muted:     #5a6a8a;
+    --white:     #ffffff;
+    --green:     #2d7a4f;
+    --radius:    6px;
+    --shadow:    0 2px 12px rgba(31,56,100,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 15px;
+    background: #eef1f7;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── header bar ── */
+  .top-bar {
+    background: var(--dark-blue);
+    padding: 28px 0 24px;
+    text-align: center;
+  }
+  .top-bar h1 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+  .top-bar .subtitle {
+    color: #BDD7EE;
+    font-size: 13px;
+    font-style: italic;
+  }
+  .top-bar .byline {
+    color: #8eaacc;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  /* ── progress bar ── */
+  .progress-wrap {
+    background: var(--dark-blue);
+    padding: 0 0 12px;
+  }
+  .progress-bar-outer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .progress-label {
+    color: #8eaacc;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .progress-track {
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #BDD7EE;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ── main container ── */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  /* ── cards ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-purpose {
+    border-left: 5px solid var(--gold-dark);
+    background: var(--gold);
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .card-purpose h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin-bottom: 8px;
+  }
+  .card-purpose p { font-size: 14px; color: #3a3a2e; line-height: 1.65; }
+  .card-purpose .timing {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #7a6a00;
+    font-style: italic;
+  }
+
+  .card-instructions {
+    background: #f0f4fb;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* ── section header ── */
+  .section-header {
+    background: var(--dark-blue);
+    padding: 16px 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .section-letter {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .section-title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .section-sub {
+    color: #8eaacc;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .section-note {
+    background: var(--light-blue);
+    padding: 12px 24px;
+    font-size: 13px;
+    color: var(--mid-blue);
+    font-style: italic;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-body { padding: 20px 24px; }
+
+  /* ── profile questions ── */
+  .profile-q { margin-bottom: 22px; }
+  .profile-q:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .q-num { color: var(--mid-blue); }
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .options-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .option-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--grey);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 13px;
+  }
+  .option-item:hover { border-color: var(--mid-blue); background: #e8eef8; }
+  .option-item input[type="radio"],
+  .option-item input[type="checkbox"] { accent-color: var(--mid-blue); width: 15px; height: 15px; flex-shrink: 0; }
+  .option-item.selected { border-color: var(--mid-blue); background: #e0e9f8; }
+
+  /* ── likert table ── */
+  .likert-intro {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 12px 24px 0;
+    font-style: italic;
+  }
+  .likert-wrap { overflow-x: auto; padding: 16px 24px; }
+  .likert-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 520px;
+  }
+  .likert-table thead th {
+    background: var(--mid-blue);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .likert-table thead th.stmt-col {
+    text-align: left;
+    padding-left: 12px;
+    width: 48%;
+  }
+  .likert-table tbody tr { border-bottom: 1px solid var(--border); }
+  .likert-table tbody tr:nth-child(even) { background: var(--grey); }
+  .likert-table tbody tr:hover { background: #e8eef8; }
+  .likert-table td {
+    padding: 12px 6px;
+    font-size: 13.5px;
+    color: var(--text);
+    text-align: center;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .likert-table td.stmt-cell {
+    text-align: left;
+    padding: 12px 12px;
+    line-height: 1.55;
+  }
+  .likert-table td.stmt-cell strong { color: var(--mid-blue); }
+  .likert-table input[type="radio"] {
+    width: 17px; height: 17px;
+    accent-color: var(--mid-blue);
+    cursor: pointer;
+  }
+
+  /* ── background box for section ── */
+  .bg-box {
+    background: var(--light-blue);
+    border-left: 4px solid var(--mid-blue);
+    padding: 14px 16px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 13.5px;
+    color: var(--dark-blue);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* ── open questions ── */
+  .open-q { margin-bottom: 18px; }
+  .open-q:last-child { margin-bottom: 0; }
+  .open-q-label {
+    background: var(--light-blue);
+    padding: 12px 16px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    font-size: 13.5px;
+    color: var(--dark-blue);
+    line-height: 1.55;
+    border: 1px solid var(--border);
+    border-bottom: none;
+  }
+  .open-q-label strong { color: var(--mid-blue); }
+  .open-q textarea {
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    padding: 12px 14px;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--white);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .open-q textarea:focus { border-color: var(--mid-blue); }
+  .open-q textarea::placeholder { color: #aab; font-style: italic; }
+
+  /* ── ranking table ── */
+  .rank-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .rank-table thead th {
+    background: var(--mid-blue);
+    color: #fff;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .rank-table thead th:last-child { text-align: center; width: 120px; }
+  .rank-table tbody tr { border-bottom: 1px solid var(--border); }
+  .rank-table tbody tr:nth-child(even) { background: var(--grey); }
+  .rank-table td { padding: 11px 12px; border: 1px solid var(--border); vertical-align: middle; }
+  .rank-table td:first-child { width: 36px; text-align: center; color: var(--muted); font-weight: 600; }
+  .rank-table td:last-child { text-align: center; }
+  .rank-table select {
+    padding: 5px 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px;
+    background: var(--white);
+    color: var(--text);
+    cursor: pointer;
+    width: 80px;
+    accent-color: var(--mid-blue);
+  }
+  .rank-table select:focus { border-color: var(--mid-blue); outline: none; }
+
+  /* ── divider ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 4px 0 20px; }
+
+  /* ── nav buttons ── */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    gap: 12px;
+  }
+  .btn {
+    padding: 11px 28px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-back {
+    background: var(--white);
+    color: var(--mid-blue);
+    border: 1.5px solid var(--border);
+  }
+  .btn-back:hover { background: var(--grey); }
+  .btn-next {
+    background: var(--mid-blue);
+    color: #fff;
+    margin-left: auto;
+  }
+  .btn-next:hover { background: var(--dark-blue); }
+  .btn-submit {
+    background: var(--green);
+    color: #fff;
+    padding: 12px 36px;
+    font-size: 15px;
+    margin-left: auto;
+  }
+  .btn-submit:hover { background: #1f5c3a; }
+
+  /* ── section pages ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── thank you screen ── */
+  .thankyou {
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .thankyou .check {
+    width: 64px; height: 64px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px; color: #fff;
+  }
+  .thankyou h2 { color: var(--dark-blue); font-size: 22px; margin-bottom: 12px; }
+  .thankyou p { color: var(--muted); font-size: 14px; max-width: 480px; margin: 0 auto 8px; }
+  .thankyou .email { color: var(--mid-blue); font-weight: 600; }
+
+  /* ── footer ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #aab;
+    padding: 24px 0 40px;
+  }
+
+  /* ── responsive ── */
+  @media(max-width: 540px) {
+    .options-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+    .options-grid { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; gap: 4px; }
+    .nav-row { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+    .btn-next, .btn-submit { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="top-bar">
+  <h1>AUDIT OF ERP SYSTEMS IN PUBLIC SECTOR UNDERTAKINGS</h1>
+  <div class="subtitle">Practitioner Survey — ERP Audit Experience &amp; GRC Utilisation</div>
+  <div class="byline">Imsurenla Longkumer &nbsp;|&nbsp; IA&AS Officer Trainee &nbsp;|&nbsp; NAAA &nbsp;|&nbsp; 2025–26</div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+  <div class="progress-bar-outer">
+    <div class="progress-label" id="progressLabel">Section 1 of 6</div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 0 — Intro                               -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page active" id="page-0">
+    <div class="card-purpose">
+      <h2>Purpose of This Survey</h2>
+      <p>This survey supports a dissertation titled <strong>"Audit of ERP Systems in Public Sector Undertakings"</strong>, supervised by Shri Kumar Chandresh, Director, NAAA. It examines how well ERP systems in Indian PSUs are being used to enforce financial controls, and whether CAG audit teams have the tools and skills to audit those controls effectively.</p>
+      <p class="timing">All responses are confidential and reported only in aggregate. The survey takes approximately <strong>8–10 minutes</strong>.</p>
+    </div>
+
+    <div class="card-instructions">
+      <strong>Instructions:</strong> For each statement in Sections B–E, tick the number that best matches your experience. If you have limited direct experience of a particular area, answer based on your general professional knowledge and observation. If you genuinely have no basis to answer a question at all, leave it blank. For open-text questions, even one sentence is helpful. You do not need to know technical SAP terminology to answer — answer from what you have seen or experienced.
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-next" onclick="goTo(1)">Start Survey &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 1 — Section A: About You                -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-1">
+    <div class="card">
+      <div class="section-header">
+        <div>
+          <div class="section-letter">SECTION A</div>
+        </div>
+        <div>
+          <div class="section-title">About You</div>
+          <div class="section-sub">For classification purposes only. No identifying information is collected.</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="profile-q">
+          <label class="q-label"><span class="q-num">A1. </span>Your current or most recent role</label>
+          <div class="options-grid">
+            <label class="option-item"><input type="radio" name="A1" value="IA&AD Sr AO/AAO"/> IA&amp;AD — Sr. AO / AAO</label>
+            <label class="option-item"><input type="radio" name="A1" value="IA&AD Sr Auditor"/> IA&amp;AD — Sr. Auditor / Auditor</label>
+            <label class="option-item"><input type="radio" name="A1" value="PSU Internal Audit"/> PSU Internal Audit (IT focus)</label>
+            <label class="option-item"><input type="radio" name="A1" value="SAP Consultant"/> SAP Implementation Consultant (PSU projects)</label>
+            <label class="option-item"><input type="radio" name="A1" value="Retired CIO"/> Retired PSU CIO / IT Head</label>
+            <label class="option-item"><input type="radio" name="A1" value="Other"/> Other</label>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="profile-q">
+          <label class="q-label"><span class="q-num">A2. </span>Total years of experience in ERP or IT audit</label>
+          <div class="options-grid cols-4">
+            <label class="option-item"><input type="radio" name="A2" value="<3"/> Less than 3 years</label>
+            <label class="option-item"><input type="radio" name="A2" value="3-7"/> 3–7 years</label>
+            <label class="option-item"><input type="radio" name="A2" value="8-14"/> 8–14 years</label>
+            <label class="option-item"><input type="radio" name="A2" value="15+"/> 15 years or more</label>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="profile-q">
+          <label class="q-label"><span class="q-num">A3. </span>Number of PSU SAP systems you have directly audited or worked in</label>
+          <div class="options-grid cols-4">
+            <label class="option-item"><input type="radio" name="A3" value="1-2"/> 1–2</label>
+            <label class="option-item"><input type="radio" name="A3" value="3-5"/> 3–5</label>
+            <label class="option-item"><input type="radio" name="A3" value="6-10"/> 6–10</label>
+            <label class="option-item"><input type="radio" name="A3" value="10+"/> More than 10</label>
+          </div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="profile-q">
+          <label class="q-label"><span class="q-num">A4. </span>Which version of SAP have you mainly encountered in PSU work?</label>
+          <div class="options-grid cols-4">
+            <label class="option-item"><input type="radio" name="A4" value="R3"/> SAP R/3</label>
+            <label class="option-item"><input type="radio" name="A4" value="ECC"/> SAP ECC 6.0</label>
+            <label class="option-item"><input type="radio" name="A4" value="S4"/> SAP S/4HANA</label>
+            <label class="option-item"><input type="radio" name="A4" value="Others"/> Others / Non-SAP</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back" onclick="goTo(0)">&larr; Back</button>
+      <button class="btn btn-next" onclick="goTo(2)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 2 — Section B                           -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-2">
+    <div class="card">
+      <div class="section-header">
+        <div><div class="section-letter">SECTION B</div></div>
+        <div>
+          <div class="section-title">How SAP Is Used to Control Financial Risks</div>
+          <div class="section-sub">Covers: automated controls, access management, conflict of interest situations</div>
+        </div>
+      </div>
+      <div class="section-note">
+        Note: The questions below ask about things you may have seen or experienced in PSU SAP systems. You do not need to know the technical name for a feature — just answer based on whether the described situation occurred.
+      </div>
+      <div class="likert-wrap">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="stmt-col">Statement</th>
+              <th>Strongly<br/>Disagree</th>
+              <th>Disagree</th>
+              <th>Neutral</th>
+              <th>Agree</th>
+              <th>Strongly<br/>Agree</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="stmt-cell"><strong>Q1.</strong> In the PSUs I have audited, the SAP system automatically detected or prevented situations where one person had conflicting duties — for example, the ability to both add a new vendor and approve payments to that vendor.</td>
+              <td><input type="radio" name="Q1" value="1"/></td>
+              <td><input type="radio" name="Q1" value="2"/></td>
+              <td><input type="radio" name="Q1" value="3"/></td>
+              <td><input type="radio" name="Q1" value="4"/></td>
+              <td><input type="radio" name="Q1" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q2.</strong> SAP automatically generated alerts or exception reports when something unusual happened — such as a payment above a limit, a blocked vendor being paid, or a duplicate entry — without someone having to manually check.</td>
+              <td><input type="radio" name="Q2" value="1"/></td>
+              <td><input type="radio" name="Q2" value="2"/></td>
+              <td><input type="radio" name="Q2" value="3"/></td>
+              <td><input type="radio" name="Q2" value="4"/></td>
+              <td><input type="radio" name="Q2" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q3.</strong> Where these automated alerts existed, management actually used them to fix the problem — rather than just filing the report and moving on.</td>
+              <td><input type="radio" name="Q3" value="1"/></td>
+              <td><input type="radio" name="Q3" value="2"/></td>
+              <td><input type="radio" name="Q3" value="3"/></td>
+              <td><input type="radio" name="Q3" value="4"/></td>
+              <td><input type="radio" name="Q3" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q4.</strong> In my experience, situations where the same person could both create a vendor and make payments to that vendor were common in PSU SAP systems and kept coming up in successive audits even after being flagged.</td>
+              <td><input type="radio" name="Q4" value="1"/></td>
+              <td><input type="radio" name="Q4" value="2"/></td>
+              <td><input type="radio" name="Q4" value="3"/></td>
+              <td><input type="radio" name="Q4" value="4"/></td>
+              <td><input type="radio" name="Q4" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q5.</strong> In the PSUs I have audited, certain SAP users had much broader system access than their job required — for example, access to change financial records, delete entries, or override system controls.</td>
+              <td><input type="radio" name="Q5" value="1"/></td>
+              <td><input type="radio" name="Q5" value="2"/></td>
+              <td><input type="radio" name="Q5" value="3"/></td>
+              <td><input type="radio" name="Q5" value="4"/></td>
+              <td><input type="radio" name="Q5" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q6.</strong> I have personally come across a case where one person in a PSU could both create a new supplier in the system and also approve and process payment to that supplier.</td>
+              <td><input type="radio" name="Q6" value="1"/></td>
+              <td><input type="radio" name="Q6" value="2"/></td>
+              <td><input type="radio" name="Q6" value="3"/></td>
+              <td><input type="radio" name="Q6" value="4"/></td>
+              <td><input type="radio" name="Q6" value="5"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-body">
+        <div class="open-q">
+          <div class="open-q-label"><strong>Q7.</strong> In your experience, why do PSUs not make full use of the automated control and monitoring features available in SAP, even when those features are already part of their system?</div>
+          <textarea name="Q7" placeholder="Your response (even one sentence helps)…"></textarea>
+        </div>
+        <div class="open-q">
+          <div class="open-q-label"><strong>Q8.</strong> What is the most practical way to check whether one person has conflicting duties in a PSU SAP system? (Share whatever method has worked for you — even if informal)</div>
+          <textarea name="Q8" placeholder="Your response…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back" onclick="goTo(1)">&larr; Back</button>
+      <button class="btn btn-next" onclick="goTo(3)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 3 — Section C                           -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-3">
+    <div class="card">
+      <div class="section-header">
+        <div><div class="section-letter">SECTION C</div></div>
+        <div>
+          <div class="section-title">When the Auditor Cannot See Inside the System</div>
+          <div class="section-sub">Covers: audit trail gaps, system opacity, access to system documentation</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="bg-box">
+          <strong>Background:</strong> Sometimes an auditor cannot verify how the SAP system processed a transaction — because the system did not keep a record of what happened, or the record was not made available, or because the transaction passed through multiple systems and the trail was broken. This section asks about your experience with such situations.
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="stmt-col">Statement</th>
+              <th>Strongly<br/>Disagree</th>
+              <th>Disagree</th>
+              <th>Neutral</th>
+              <th>Agree</th>
+              <th>Strongly<br/>Agree</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="stmt-cell"><strong>Q9.</strong> I have encountered PSU SAP systems where changes made to important data — such as vendor details, asset records, or employee information — were not recorded anywhere in the system, making it impossible to trace who changed what and when.</td>
+              <td><input type="radio" name="Q9" value="1"/></td>
+              <td><input type="radio" name="Q9" value="2"/></td>
+              <td><input type="radio" name="Q9" value="3"/></td>
+              <td><input type="radio" name="Q9" value="4"/></td>
+              <td><input type="radio" name="Q9" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q10.</strong> In PSU audits, the organisation was unable or unwilling to provide documentation showing how the SAP system had been set up and what rules it was following — making it difficult to check whether the system was configured correctly.</td>
+              <td><input type="radio" name="Q10" value="1"/></td>
+              <td><input type="radio" name="Q10" value="2"/></td>
+              <td><input type="radio" name="Q10" value="3"/></td>
+              <td><input type="radio" name="Q10" value="4"/></td>
+              <td><input type="radio" name="Q10" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q11.</strong> The current CAG audit approach provides clear and sufficient guidance on what to do when a PSU SAP system does not have proper records of its transactions or configuration.</td>
+              <td><input type="radio" name="Q11" value="1"/></td>
+              <td><input type="radio" name="Q11" value="2"/></td>
+              <td><input type="radio" name="Q11" value="3"/></td>
+              <td><input type="radio" name="Q11" value="4"/></td>
+              <td><input type="radio" name="Q11" value="5"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-body">
+        <div class="open-q">
+          <div class="open-q-label"><strong>Q12.</strong> Can you describe (without naming anyone) a situation where you were unable to complete an audit check because the SAP system did not have the necessary records or because you could not access the information you needed? What did you do?</div>
+          <textarea name="Q12" placeholder="Your response…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back" onclick="goTo(2)">&larr; Back</button>
+      <button class="btn btn-next" onclick="goTo(4)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 4 — Section D                           -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-4">
+    <div class="card">
+      <div class="section-header">
+        <div><div class="section-letter">SECTION D</div></div>
+        <div>
+          <div class="section-title">CAG Audit Guidelines for ERP Systems</div>
+          <div class="section-sub">Covers: adequacy of existing guidance, gaps compared to international standards</div>
+        </div>
+      </div>
+      <div class="section-note">
+        This section asks about the guidance available to CAG audit teams when auditing ERP systems like SAP. If you are not familiar with the CAG IS Audit Manual or international audit standards, answer based on your general experience or leave the question blank.
+      </div>
+      <div class="likert-wrap">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="stmt-col">Statement</th>
+              <th>Strongly<br/>Disagree</th>
+              <th>Disagree</th>
+              <th>Neutral</th>
+              <th>Agree</th>
+              <th>Strongly<br/>Agree</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="stmt-cell"><strong>Q13.</strong> The existing CAG audit guidelines give sufficient step-by-step direction for checking whether an ERP system's internal controls are working properly — for example, whether the system correctly blocks an unauthorised payment or enforces an approval workflow.</td>
+              <td><input type="radio" name="Q13" value="1"/></td>
+              <td><input type="radio" name="Q13" value="2"/></td>
+              <td><input type="radio" name="Q13" value="3"/></td>
+              <td><input type="radio" name="Q13" value="4"/></td>
+              <td><input type="radio" name="Q13" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q14.</strong> The existing CAG audit guidelines adequately cover how to check whether data transferred from an old system into SAP was transferred correctly and completely.</td>
+              <td><input type="radio" name="Q14" value="1"/></td>
+              <td><input type="radio" name="Q14" value="2"/></td>
+              <td><input type="radio" name="Q14" value="3"/></td>
+              <td><input type="radio" name="Q14" value="4"/></td>
+              <td><input type="radio" name="Q14" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q15.</strong> International audit guidelines for ERP systems (such as those published by ISACA) are more practical and detailed than the current CAG guidance when it comes to auditing SAP in a PSU.</td>
+              <td><input type="radio" name="Q15" value="1"/></td>
+              <td><input type="radio" name="Q15" value="2"/></td>
+              <td><input type="radio" name="Q15" value="3"/></td>
+              <td><input type="radio" name="Q15" value="4"/></td>
+              <td><input type="radio" name="Q15" value="5"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-body">
+        <div class="open-q">
+          <div class="open-q-label"><strong>Q16.</strong> In your view, what is the biggest gap in current CAG audit guidance when it comes to auditing a large PSU that uses SAP? What is missing that auditors most need?</div>
+          <textarea name="Q16" placeholder="Your response…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back" onclick="goTo(3)">&larr; Back</button>
+      <button class="btn btn-next" onclick="goTo(5)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 5 — Section E                           -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-5">
+    <div class="card">
+      <div class="section-header">
+        <div><div class="section-letter">SECTION E</div></div>
+        <div>
+          <div class="section-title">Skills and Training of ERP Auditors</div>
+          <div class="section-sub">Covers: current technical capacity, priority training needs</div>
+        </div>
+      </div>
+      <div class="likert-wrap">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="stmt-col">Statement</th>
+              <th>Strongly<br/>Disagree</th>
+              <th>Disagree</th>
+              <th>Neutral</th>
+              <th>Agree</th>
+              <th>Strongly<br/>Agree</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="stmt-cell"><strong>Q17.</strong> CAG IS audit teams I have worked with have the technical skills to independently check and extract data from SAP — without having to rely on the PSU to pull the data for them.</td>
+              <td><input type="radio" name="Q17" value="1"/></td>
+              <td><input type="radio" name="Q17" value="2"/></td>
+              <td><input type="radio" name="Q17" value="3"/></td>
+              <td><input type="radio" name="Q17" value="4"/></td>
+              <td><input type="radio" name="Q17" value="5"/></td>
+            </tr>
+            <tr>
+              <td class="stmt-cell"><strong>Q18.</strong> CAG IS auditors I have worked with are able to use data analysis tools (such as ACL, IDEA, or Excel) to independently analyse large volumes of transaction data extracted from SAP.</td>
+              <td><input type="radio" name="Q18" value="1"/></td>
+              <td><input type="radio" name="Q18" value="2"/></td>
+              <td><input type="radio" name="Q18" value="3"/></td>
+              <td><input type="radio" name="Q18" value="4"/></td>
+              <td><input type="radio" name="Q18" value="5"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-body">
+        <div class="open-q" style="margin-bottom:16px;">
+          <div class="open-q-label"><strong>Q19.</strong> If you were designing a training programme for CAG auditors who will audit SAP systems in PSUs, which of the following skills would you prioritise? Please rank them 1 to 5 (1 = most important, 5 = least important among these):</div>
+        </div>
+        <table class="rank-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Skill / Competency</th>
+              <th>Rank (1 = most critical)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>How to navigate SAP and extract data directly from the system (without relying on management to provide it)</td>
+              <td><select name="R1"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>How to check whether users have been given the right level of access — and flag cases where one person can do too much</td>
+              <td><select name="R2"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>How to verify that data was correctly transferred when a PSU moved from an old system to SAP</td>
+              <td><select name="R3"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>How to use data analysis tools to review large volumes of transactions for errors or fraud indicators</td>
+              <td><select name="R4"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>How to check whether the SAP system has been set up correctly to enforce the organisation's financial rules</td>
+              <td><select name="R5"><option value="">–</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:20px;">
+          <div class="open-q">
+            <div class="open-q-label"><strong>Q20.</strong> What single change — whether in training, staffing, tools, or guidelines — would most improve the quality of ERP audits conducted by CAG teams in PSUs over the next 2–3 years?</div>
+            <textarea name="Q20" placeholder="Your response…"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back" onclick="goTo(4)">&larr; Back</button>
+      <button class="btn btn-next" onclick="goTo(6)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 6 — Section F                           -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-6">
+    <div class="card">
+      <div class="section-header">
+        <div><div class="section-letter">SECTION F</div></div>
+        <div><div class="section-title">Your Overall View</div></div>
+      </div>
+      <div class="card-body">
+        <div class="open-q">
+          <div class="open-q-label"><strong>Q21.</strong> Based on your experience, what is the single most important control weakness or risk in PSU SAP systems that CAG auditors should focus on — and why do you think it keeps occurring?</div>
+          <textarea name="Q21" placeholder="Your response…" style="min-height:120px;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-back" onclick="goTo(5)">&larr; Back</button>
+      <button class="btn btn-submit" onclick="submitForm()">Submit Survey &#10003;</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- PAGE 7 — Thank You                           -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="page" id="page-7">
+    <div class="card">
+      <div class="thankyou">
+        <div class="check">&#10003;</div>
+        <h2>Thank you for your contribution.</h2>
+        <p>Your responses have been recorded and will directly inform the research findings on ERP audit practice in Indian PSUs.</p>
+        <p style="margin-top:12px;">For any queries, please write to: <span class="email">imsurenla.longkumer@naaa.gov.in</span></p>
+        <p style="margin-top:20px; font-size:12px; color:#aab;">Dissertation supervised by Shri Kumar Chandresh, Director, NAAA<br/>National Academy of Audit and Accounts</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Imsurenla Longkumer &nbsp;|&nbsp; ERP Audit Practitioner Survey &nbsp;|&nbsp; NAAA 2025–26
+</div>
+
+<script>
+  const TOTAL_PAGES = 7; // 0-indexed, pages 0–7
+
+  function goTo(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + n).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateProgress(n);
+  }
+
+  function updateProgress(n) {
+    const sections = 6; // A through F
+    const fill = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+
+    if (n === 0) {
+      fill.style.width = '0%';
+      label.textContent = 'Introduction';
+    } else if (n === 7) {
+      fill.style.width = '100%';
+      label.textContent = 'Complete';
+    } else {
+      const pct = Math.round((n / sections) * 100);
+      fill.style.width = pct + '%';
+      label.textContent = 'Section ' + n + ' of ' + sections;
+    }
+  }
+
+  function submitForm() {
+    // Collect all responses
+    const data = {};
+    document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      data[el.name] = el.value;
+    });
+    document.querySelectorAll('textarea').forEach(el => {
+      if (el.value.trim()) data[el.name] = el.value.trim();
+    });
+    document.querySelectorAll('select').forEach(el => {
+      if (el.value) data[el.name] = el.value;
+    });
+
+    // In a real deployment this would POST to a backend or Google Apps Script
+    // For now, log and show thank you screen
+    console.log('Survey responses:', JSON.stringify(data, null, 2));
+    goTo(7);
+  }
+
+  // Highlight selected radio option labels
+  document.addEventListener('change', function(e) {
+    if (e.target.type === 'radio' && e.target.closest('.options-grid')) {
+      const name = e.target.name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+        r.closest('.option-item').classList.remove('selected');
+      });
+      e.target.closest('.option-item').classList.add('selected');
+    }
+  });
+</script>
+
+</body>
+</html>
